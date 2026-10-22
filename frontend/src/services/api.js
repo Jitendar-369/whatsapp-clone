@@ -23,6 +23,11 @@ api.interceptors.response.use(
   },
 );
 
+// Public "is the server up" check - also wakes a sleeping free-tier server
+export const pingServer = () => {
+  return api.get('/health', { timeout: 90000 });
+};
+
 // Login and register both return { token, user }
 export const registerUser = (username, email, password) => {
   return api.post('/users/register', { username, email, password });
@@ -65,6 +70,6 @@ export const sendMessageAPI = (roomId, content) => {
 export const errorText = (err, fallback) => {
   const data = err.response?.data;
   if (typeof data === 'string' && data) return data;
-  if (!err.response) return 'Cannot reach the server. Is the backend running on port 8080?';
+  if (!err.response) return 'Cannot reach the server. If it was asleep it can take up to a minute to wake up - please try again.';
   return fallback;
 };

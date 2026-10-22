@@ -144,6 +144,14 @@ input, textarea { font: inherit; color: var(--text); }
   color: var(--danger);
   font-size: 14px;
 }
+.login-note {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--green) 12%, transparent);
+  color: var(--text);
+  font-size: 14px;
+}
 .login-switch { margin: 0; text-align: center; color: var(--text-muted); font-size: 14px; }
 
 /* ---------- App layout ---------- */

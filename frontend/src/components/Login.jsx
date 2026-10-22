@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { registerUser, loginUser, errorText } from '../services/api';
+import { useState, useEffect } from 'react';
+import { registerUser, loginUser, pingServer, errorText } from '../services/api';
 import { useAuthStore } from '../store/authStore';
 
 export default function Login({ onLoginSuccess }) {
@@ -9,7 +9,26 @@ export default function Login({ onLoginSuccess }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [serverAwake, setServerAwake] = useState(true);
   const login = useAuthStore((state) => state.login);
+
+  // Free hosting puts the backend to sleep when idle. Ping it as soon as the
+  // page opens so it is awake by the time the form is filled in.
+  useEffect(() => {
+    let done = false;
+    const slow = setTimeout(() => !done && setServerAwake(false), 2500);
+    pingServer()
+      .catch(() => {})
+      .finally(() => {
+        done = true;
+        clearTimeout(slow);
+        setServerAwake(true);
+      });
+    return () => {
+      done = true;
+      clearTimeout(slow);
+    };
+  }, []);
 
   const isRegister = mode === 'register';
 
@@ -47,6 +66,11 @@ export default function Login({ onLoginSuccess }) {
         <h1>{isRegister ? 'Create your account' : 'Welcome back'}</h1>
         <p className="login-sub">{isRegister ? 'Sign up to start chatting' : 'Log in to continue chatting'}</p>
 
+        {!serverAwake && (
+          <p className="login-note" role="status">
+            Waking up the server… free hosting sleeps when idle, so this can take up to a minute.
+          </p>
+        )}
         {error && <p className="login-error" role="alert">{error}</p>}
 
         <label>

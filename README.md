@@ -73,6 +73,38 @@ Open http://localhost:5173, register two accounts (for example in a normal and a
 
 To point the app at a different backend, copy `frontend/.env.example` to `frontend/.env` and change the URLs.
 
+## Deploying for free
+
+| Part | Host | Free-plan note |
+| --- | --- | --- |
+| Database | [Neon](https://neon.com) | 0.5 GB storage |
+| Backend | [Render](https://render.com) (Docker) | Sleeps after 15 min idle; the first request then takes up to ~1 min |
+| Frontend | [Vercel](https://vercel.com) | Static site |
+
+**1. Database (Neon).** Create a project and copy its connection details. The JDBC URL looks like
+`jdbc:postgresql://<host>/<database>?sslmode=require`. The username and password are shown separately.
+
+**2. Backend (Render).** New → Blueprint → pick this repo. Render reads [`render.yaml`](render.yaml) and asks for:
+
+| Variable | Value |
+| --- | --- |
+| `DB_URL` | The Neon JDBC URL from step 1 |
+| `DB_USERNAME` / `DB_PASSWORD` | From Neon |
+| `CORS_ORIGINS` | Your Vercel URL from step 3, e.g. `https://whatsapp-clone.vercel.app` (enter a placeholder first and update it after step 3) |
+
+`JWT_SECRET` is generated automatically. When it's deployed, `https://<your-service>.onrender.com/api/health` returns `{"status":"UP"}`.
+
+**3. Frontend (Vercel).** Import this repo, set **Root Directory** to `frontend`, and add:
+
+| Variable | Value |
+| --- | --- |
+| `VITE_API_URL` | `https://<your-service>.onrender.com/api` |
+| `VITE_WS_URL` | `wss://<your-service>.onrender.com/ws` |
+
+Then put the Vercel URL into `CORS_ORIGINS` on Render. Render redeploys by itself when an environment variable changes.
+
+The login page pings `/api/health` as soon as it opens, so a sleeping backend starts waking up while you type.
+
 ## API overview
 
 All endpoints except login and register need `Authorization: Bearer <token>`.

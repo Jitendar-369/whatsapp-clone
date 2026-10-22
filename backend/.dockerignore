@@ -1,0 +1,9 @@
+target/
+local.properties
+.mvn/
+.settings/
+.classpath
+.project
+*.iml
+.idea/
+.vscode/

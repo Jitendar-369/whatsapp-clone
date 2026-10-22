@@ -53,11 +53,11 @@ public class SecurityConfig {
         return NimbusJwtDecoder.withSecretKey(jwtKey).macAlgorithm(MacAlgorithm.HS256).build();
     }
 
+    // Sites allowed to call the API (app.cors.allowed-origins / CORS_ORIGINS)
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource(@Value("${app.cors.allowed-origins}") String[] allowedOrigins) {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Any local dev port (Vite moves to 5174, 5175... when 5173 is taken)
-        configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:*", "http://127.0.0.1:*"));
+        configuration.setAllowedOriginPatterns(Arrays.asList(allowedOrigins));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
@@ -75,7 +75,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/api/users/login", "/api/users/register", "/error").permitAll()
+                .requestMatchers("/api/users/login", "/api/users/register", "/api/health", "/error").permitAll()
                 // The WebSocket handshake is open; the token is checked on STOMP CONNECT
                 .requestMatchers("/ws/**", "/ws-chat/**").permitAll()
                 .anyRequest().authenticated())
