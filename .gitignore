@@ -1,0 +1,18 @@
+# Secrets and local-only files
+backend/local.properties
+.env
+.env.local
+**/test-users.local.txt
+
+# Build output and dependencies
+backend/target/
+frontend/node_modules/
+frontend/dist/
+
+# Editors and tools
+.idea/
+.vscode/
+*.iml
+.claude/
+.DS_Store
+Thumbs.db

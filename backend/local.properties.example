@@ -1,0 +1,7 @@
+# Copy this file to local.properties (same folder) and fill in your values.
+# local.properties is git-ignored, so your secrets stay on your machine.
+
+DB_PASSWORD=your-postgres-password
+
+# Any random string of 32+ characters, e.g. from: openssl rand -base64 48
+JWT_SECRET=change-me-to-a-long-random-string-of-at-least-32-chars
