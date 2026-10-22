@@ -104,7 +104,7 @@ export function mockRoast({ facts, score, level, reasons }) {
   ];
   for (const f of fillers) if (plan.length < 4) plan.push(f);
 
-  const shareLine = `I'm ${score}% cooked for placements (${level.label}) 🔥 How cooked are you?`;
+  const shareLine = score <= 40 ? `Only ${score}% cooked. Placements, I'm ready 😤🔥` : `${score}% cooked for placements (${level.label}) 💀 Send help.`;
   return normalizeRoast({
     roast: roast.replace(/\s+/g, " ").trim(),
     shareLine,
