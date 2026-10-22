@@ -1,0 +1,23 @@
+Priya Iyer
+priya.iyer@example.com | (+91) 91234-56789 | linkedin.com/in/priya-iyer | github.com/priyaiyer
+
+Education
+B.Tech in Computer Science and Engineering, XYZ National Institute of Technology (2022 - 2026)
+CGPA: 8.9/10
+
+Skills
+Python, JavaScript, TypeScript, React, Node.js, Express, MongoDB, PostgreSQL, Docker, AWS, PyTorch, scikit-learn, Git
+
+Experience
+Software Engineering Intern, FinPay Technologies (May 2025 - Jul 2025)
+- Built a payment reconciliation service in Node.js handling 50k transactions/day
+
+Projects
+CampusConnect - full-stack MERN platform for 3,000+ students with real-time chat and JWT auth
+CropDoc - PyTorch CNN detecting crop diseases from leaf images with 94% accuracy, deployed on AWS
+Resume Ranker - NLP pipeline ranking resumes against job descriptions using embeddings
+
+Achievements
+Winner, Smart India Hackathon 2024
+LeetCode: 450+ problems solved, Knight rating 1890
+AWS Certified Cloud Practitioner

@@ -1,0 +1,18 @@
+Rahul Sharma
+rahul.sharma2004@gmail.com | +91 98765 43210
+
+Education
+B.Tech in Computer Science, ABC Institute of Technology (2022 - 2026)
+CGPA: 6.5
+
+Skills
+HTML, CSS
+
+Projects
+Calculator - basic calculator using HTML and CSS
+ToDo App - to-do list webpage
+
+Internships: None
+
+Achievements
+None
