@@ -5,6 +5,8 @@ services:
     name: whatsapp-clone-api
     runtime: docker
     plan: free
+    # Keep this next to the database region (Neon: AWS Asia Pacific - Singapore)
+    region: singapore
     rootDir: backend
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
